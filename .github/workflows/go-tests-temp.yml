@@ -1,0 +1,24 @@
+name: "Temp: run go tests on test-workflow branch"
+
+on:
+  push:
+    branches:
+      - test-workflow
+  pull_request:
+    branches:
+      - test-workflow
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.0'
+
+      - name: Run tests
+        run: go test ./... -v
