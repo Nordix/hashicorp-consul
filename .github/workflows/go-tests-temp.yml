@@ -1,4 +1,4 @@
-name: go-tests-temp
+name: Temp: run go tests on main branch
 
 on:
   pull_request:
@@ -9,11 +9,18 @@ on:
       - test-main-workflow
 
 jobs:
-  run-tests:
+  run-tests-main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
           go-version: 1.21
-      - run: go test ./...
+
+      - name: Run Go tests
+        run: go test ./...
