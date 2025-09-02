@@ -1,0 +1,26 @@
+name: temp-go-tests
+
+on:
+  push:
+    branches:
+      - CVE-2023-44487-fix
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.0'
+
+      - name: Verify dependencies
+        run: |
+          go mod tidy
+          go mod download
+
+      - name: Run Go tests
+        run: go test ./... -v
