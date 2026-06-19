@@ -4,10 +4,13 @@
 name: Nightly test-integrations 1.22.x
 
 on:
-  schedule:
+  #schedule:
     # Run nightly at 1AM UTC/9PM EST/6PM PST
-    - cron: '0 1 * * *'
+    # - cron: '0 1 * * *'
   workflow_dispatch: {}
+  push:
+    branches:
+      v1.22.7-est
 
 env:
   TEST_RESULTS_DIR: /tmp/test-results
@@ -19,8 +22,8 @@ env:
   # strip the hashicorp/ off the front of github.repository for consul
   CONSUL_LATEST_IMAGE_NAME: ${{ endsWith(github.repository, '-enterprise') && github.repository || 'hashicorp/consul' }}
   GOPRIVATE: github.com/hashicorp # Required for enterprise deps
-  BRANCH: "release/1.22.x"
-  BRANCH_NAME: "release-1.22.x"   # Used for naming artifacts
+  BRANCH: "v1.22.7-est"
+  BRANCH_NAME: "v1.22.7-est"   # Used for naming artifacts
 
 jobs:
   setup:
@@ -43,12 +46,12 @@ jobs:
   get-go-version:
     uses: ./.github/workflows/reusable-get-go-version.yml
     with:
-      ref: release/1.22.x
+      ref: v1.22.7-est
 
   get-envoy-versions:
     uses: ./.github/workflows/reusable-get-envoy-versions.yml
     with:
-      ref: release/1.22.x
+      ref: v1.22.7-est
 
   dev-build:
     needs:
@@ -59,7 +62,7 @@ jobs:
       runs-on: ${{ needs.setup.outputs.compute-large }}
       repository-name: ${{ github.repository }}
       uploaded-binary-name: 'consul-bin'
-      branch-name: "release/1.22.x"
+      branch-name: "v1.22.7-est"
       go-version: ${{ needs.get-go-version.outputs.go-version }}
     secrets:
       elevated-github-token: ${{ secrets.ELEVATED_GITHUB_TOKEN }}

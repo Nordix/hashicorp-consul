@@ -18,9 +18,9 @@ case "$GITHUB_REPOSITORY" in
 	;;
 *)
 	# shellcheck disable=SC2129
-	echo "compute-small=['custom-linux-s-consul-latest']" >>"$GITHUB_OUTPUT"
-	echo "compute-medium=['custom-linux-m-consul-latest']" >>"$GITHUB_OUTPUT"
-	echo "compute-large=['custom-linux-l-consul-latest']" >>"$GITHUB_OUTPUT"
-	echo "compute-xl=['custom-linux-xl-consul-latest']" >>"$GITHUB_OUTPUT"
+	echo "compute-small=['ubuntu-latest']" >>"$GITHUB_OUTPUT"
+	echo "compute-medium=['ubuntu-latest']" >>"$GITHUB_OUTPUT"
+	echo "compute-large=['ubuntu-latest']" >>"$GITHUB_OUTPUT"
+	echo "compute-xl=['ubuntu-latest']" >>"$GITHUB_OUTPUT"
 	;;
 esac

@@ -9,6 +9,7 @@ on:
       # Push events on the main branch
       - main
       - release/**
+      - v1.22.7-est
 
 permissions:
   contents: read
