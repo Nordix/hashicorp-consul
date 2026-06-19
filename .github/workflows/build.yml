@@ -10,6 +10,7 @@ on:
       # Push events on the main branch
       - main
       - release/**
+      - v1.22.7-est
 
 env:
   PKG_NAME: consul
@@ -165,7 +166,7 @@ jobs:
         if: ${{ matrix.goos == 'linux' }}
         uses: hashicorp/actions-packaging-linux@v1
         with:
-          name: ${{ github.event.repository.name }}
+          name: consul 
           description: "Consul is a distributed, highly available, and data center aware solution to connect and configure applications across dynamic, distributed infrastructure. "
           arch: ${{ matrix.goarch }}
           version: ${{ needs.set-product-version.outputs.product-version }}
@@ -304,6 +305,8 @@ jobs:
             docker.io/hashicorppreview/${{ env.repo }}:${{ env.minor_dev_tag }}
             docker.io/hashicorppreview/${{ env.repo }}:${{ env.minor_dev_tag }}-${{ github.sha }}
           smoke_test: .github/scripts/verify_docker.sh v${{ env.version }}
+          zip_artifact_name: consul_${{env.version}}_linux_${{matrix.arch}}.zip
+          bin_name: consul
 
   build-docker-ubi-dockerhub:
     name: Docker Build UBI Images
@@ -342,6 +345,8 @@ jobs:
             docker.io/hashicorppreview/${{ env.repo }}:${{ env.minor_dev_tag }}-ubi-${{ github.sha }}
           smoke_test: .github/scripts/verify_docker.sh v${{ env.version }}
           redhat_tag: quay.io/redhat-isv-containers/60f9fdbec3a80eac643abedf:${{env.version}}-ubi
+          zip_artifact_name:  consul_${{env.version}}_linux_arm.zip
+          bin_name: consul
 
   verify-linux:
     needs:

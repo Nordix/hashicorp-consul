@@ -3,9 +3,12 @@
 
 name: Nightly Frontend Test 1.22.x
 on:
-  schedule:
-    - cron: "0 4 * * *"
+  #schedule:
+  #  - cron: "0 4 * * *"
   workflow_dispatch: {}
+  push:
+    branches:
+      v1.22.7-est
 
 env:
   EMBER_PARTITION_TOTAL: 4 # Has to be changed in tandem with the matrix.partition
