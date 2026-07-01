@@ -271,9 +271,9 @@ jobs:
         run: |
           if ${{ endsWith(github.repository, '-enterprise') }} == 'true'
           then
-            docker build -t consul-envoy:latest-version --build-arg CONSUL_IMAGE=docker.mirror.hashicorp.services/${{ env.CONSUL_LATEST_IMAGE_NAME }}:${{ env.CONSUL_LATEST_VERSION }}-ent --build-arg ENVOY_VERSION=${{ env.ENVOY_VERSION }} -f ./test/integration/consul-container/assets/Dockerfile-consul-envoy ./test/integration/consul-container/assets
+            docker build -t consul-envoy:latest-version --build-arg CONSUL_IMAGE=${{ env.CONSUL_LATEST_IMAGE_NAME }}:${{ env.CONSUL_LATEST_VERSION }}-ent --build-arg ENVOY_VERSION=${{ env.ENVOY_VERSION }} -f ./test/integration/consul-container/assets/Dockerfile-consul-envoy ./test/integration/consul-container/assets
           else
-            docker build -t consul-envoy:latest-version --build-arg CONSUL_IMAGE=docker.mirror.hashicorp.services/${{ env.CONSUL_LATEST_IMAGE_NAME }}:${{ env.CONSUL_LATEST_VERSION }}     --build-arg ENVOY_VERSION=${{ env.ENVOY_VERSION }} -f ./test/integration/consul-container/assets/Dockerfile-consul-envoy ./test/integration/consul-container/assets
+            docker build -t consul-envoy:latest-version --build-arg CONSUL_IMAGE=${{ env.CONSUL_LATEST_IMAGE_NAME }}:${{ env.CONSUL_LATEST_VERSION }}     --build-arg ENVOY_VERSION=${{ env.ENVOY_VERSION }} -f ./test/integration/consul-container/assets/Dockerfile-consul-envoy ./test/integration/consul-container/assets
           fi
       - name: Build consul-envoy:target-version image
         id: buildConsulEnvoyTargetImage
@@ -310,7 +310,7 @@ jobs:
             --follow-log=false \
             --target-image ${{ env.CONSUL_LATEST_IMAGE_NAME }} \
             --target-version local \
-            --latest-image docker.mirror.hashicorp.services/${{ env.CONSUL_LATEST_IMAGE_NAME }} \
+            --latest-image ${{ env.CONSUL_LATEST_IMAGE_NAME }} \
             --latest-version "${{ env.CONSUL_LATEST_VERSION }}"
           ls -lrt
         env:
@@ -402,7 +402,7 @@ jobs:
             ./... \
             --target-image ${{ env.CONSUL_LATEST_IMAGE_NAME }} \
             --target-version local \
-            --latest-image docker.mirror.hashicorp.services/${{ env.CONSUL_LATEST_IMAGE_NAME }} \
+            --latest-image ${{ env.CONSUL_LATEST_IMAGE_NAME }} \
             --latest-version "${{ env.CONSUL_LATEST_VERSION }}"
         env:
           # this is needed because of incompatibility between RYUK container and GHA

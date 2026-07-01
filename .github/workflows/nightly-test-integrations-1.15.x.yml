@@ -300,7 +300,7 @@ jobs:
             --follow-log=false \
             --target-image ${{ env.CONSUL_LATEST_IMAGE_NAME }} \
             --target-version local \
-            --latest-image docker.mirror.hashicorp.services/${{ env.CONSUL_LATEST_IMAGE_NAME }} \
+            --latest-image ${{ env.CONSUL_LATEST_IMAGE_NAME }} \
             --latest-version "${{ env.CONSUL_LATEST_VERSION }}"
           ls -lrt
         env:
